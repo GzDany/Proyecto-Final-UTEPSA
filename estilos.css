@@ -1,0 +1,214 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background-color: #f4f6f8;
+  color: #222;
+}
+
+.cabecera {
+  background-color: #1e3a5f;
+  color: #fff;
+  padding: 24px 20px;
+  text-align: center;
+}
+
+.cabecera h1 {
+  margin: 0 0 8px 0;
+  font-size: 24px;
+}
+
+.info-grupo {
+  margin: 0;
+  font-size: 14px;
+  color: #cfe0f0;
+}
+
+.contenedor {
+  max-width: 1000px;
+  margin: 24px auto;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.seccion {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.seccion h2 {
+  margin-top: 0;
+  font-size: 18px;
+  color: #1e3a5f;
+  border-bottom: 2px solid #e8edf2;
+  padding-bottom: 8px;
+}
+
+.campo {
+  margin-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+}
+
+.campo label {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.campo input {
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.campo input.campo-invalido {
+  border-color: #d9362f;
+  background-color: #fdecea;
+}
+
+.mensaje-error {
+  color: #d9362f;
+  font-size: 12px;
+  min-height: 16px;
+}
+
+.botones-formulario {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.boton {
+  display: inline-block;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  text-align: center;
+}
+
+.boton-principal {
+  background-color: #1e3a5f;
+  color: #fff;
+}
+
+.boton-principal:hover {
+  background-color: #16314f;
+}
+
+.boton-secundario {
+  background-color: #e0e4e8;
+  color: #333;
+}
+
+.boton-secundario:hover {
+  background-color: #cfd4d9;
+}
+
+.mensaje-info {
+  font-size: 13px;
+  color: #2e7d32;
+  margin: 10px 0 0 0;
+  min-height: 16px;
+}
+
+.tabla-inventario {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.tabla-inventario th,
+.tabla-inventario td {
+  padding: 10px;
+  border-bottom: 1px solid #e8edf2;
+  text-align: left;
+}
+
+.tabla-inventario th {
+  background-color: #f0f3f6;
+  color: #1e3a5f;
+}
+
+.fila-stock-bajo {
+  background-color: #fff4e5;
+}
+
+.etiqueta-estado {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.etiqueta-normal {
+  background-color: #e3f4e1;
+  color: #2e7d32;
+}
+
+.etiqueta-bajo {
+  background-color: #fde3e3;
+  color: #c62828;
+}
+
+.boton-fila {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 13px;
+  margin-right: 6px;
+}
+
+.boton-editar {
+  color: #1e3a5f;
+}
+
+.boton-eliminar {
+  color: #c62828;
+}
+
+.sin-productos {
+  text-align: center;
+  color: #888;
+  font-size: 14px;
+}
+
+.tarjetas-resumen {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+}
+
+.tarjeta {
+  background-color: #f0f3f6;
+  border-radius: 6px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.tarjeta-titulo {
+  font-size: 13px;
+  color: #555;
+}
+
+.tarjeta-valor {
+  font-size: 22px;
+  font-weight: bold;
+  color: #1e3a5f;
+}
+
+.tarjeta-alerta .tarjeta-valor {
+  color: #c62828;
+}

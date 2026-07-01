@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Sistema de Gestión de Inventario - Grupo 4</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+  <header class="cabecera">
+    <h1>Sistema de Gestión de Inventario</h1>
+  </header>
+
+  <main class="contenedor">
+
+    <section class="seccion formulario-seccion">
+      <h2>Registrar Producto</h2>
+      <form id="formulario-producto" novalidate>
+        <input type="hidden" id="producto-id">
+
+        <div class="campo">
+          <label for="nombre">Nombre del producto</label>
+          <input type="text" id="nombre" placeholder="Ej: Teclado mecánico" oninput="validarNombreEnTiempoReal()">
+          <span class="mensaje-error" id="error-nombre"></span>
+        </div>
+
+        <div class="campo">
+          <label for="precio">Precio unitario (USD)</label>
+          <input type="number" id="precio" step="0.01" placeholder="Ej: 25.50" oninput="validarPrecioEnTiempoReal()">
+          <span class="mensaje-error" id="error-precio"></span>
+        </div>
+
+        <div class="campo">
+          <label for="cantidad">Cantidad en stock</label>
+          <input type="number" id="cantidad" placeholder="Ej: 12" oninput="validarCantidadEnTiempoReal()">
+          <span class="mensaje-error" id="error-cantidad"></span>
+        </div>
+
+        <div class="botones-formulario">
+          <button type="submit" class="boton boton-principal" id="boton-guardar">Agregar Producto</button>
+          <button type="button" class="boton boton-secundario" id="boton-cancelar">Cancelar</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="seccion acciones-seccion">
+      <h2>Persistencia de Datos</h2>
+      <div class="botones-formulario">
+        <button class="boton boton-principal" id="boton-exportar">Exportar a archivo .txt</button>
+        <label class="boton boton-secundario" for="entrada-archivo">Importar desde archivo .txt</label>
+        <input type="file" id="entrada-archivo" accept=".txt" hidden>
+      </div>
+      <p class="mensaje-info" id="mensaje-archivo"></p>
+    </section>
+
+    <section class="seccion tabla-seccion">
+      <h2>Productos en Inventario</h2>
+      <table class="tabla-inventario">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Precio + IVA</th>
+            <th>Total con descuento</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="cuerpo-tabla">
+        </tbody>
+      </table>
+      <p class="sin-productos" id="mensaje-vacio">No hay productos registrados todavía.</p>
+    </section>
+
+    <section class="seccion resumen-seccion">
+      <h2>Resumen del Inventario</h2>
+      <div class="tarjetas-resumen">
+        <div class="tarjeta">
+          <span class="tarjeta-titulo">Total de productos</span>
+          <span class="tarjeta-valor" id="resumen-cantidad-productos">0</span>
+        </div>
+        <div class="tarjeta">
+          <span class="tarjeta-titulo">Unidades totales</span>
+          <span class="tarjeta-valor" id="resumen-unidades">0</span>
+        </div>
+        <div class="tarjeta">
+          <span class="tarjeta-titulo">Valor total del inventario</span>
+          <span class="tarjeta-valor" id="resumen-valor-total">$0.00</span>
+        </div>
+        <div class="tarjeta tarjeta-alerta">
+          <span class="tarjeta-titulo">Productos con stock bajo</span>
+          <span class="tarjeta-valor" id="resumen-stock-bajo">0</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="seccion ventas-seccion">
+      <h2>Realizar Venta</h2>
+      <div class="contenedor-venta">
+        <div class="formulario-venta">
+          <div class="campo">
+            <label for="selector-producto">Seleccionar producto</label>
+            <select id="selector-producto">
+              <option value="">-- Selecciona un producto --</option>
+            </select>
+          </div>
+
+          <div class="campo">
+            <label for="cantidad-venta">Cantidad</label>
+            <input type="number" id="cantidad-venta" min="1" placeholder="Ej: 5" oninput="validarCantidadVentaEnTiempoReal()">
+            <span class="mensaje-error" id="error-cantidad-venta"></span>
+          </div>
+
+          <button class="boton boton-principal" id="boton-agregar-venta">Agregar a venta</button>
+        </div>
+
+        <div class="tabla-venta-container">
+          <h3>Productos en venta</h3>
+          <table class="tabla-venta">
+            <thead>
+              <tr>
+                <th>Producto</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Subtotal</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="cuerpo-tabla-venta">
+            </tbody>
+          </table>
+          <p class="sin-productos" id="mensaje-venta-vacia">No hay productos en la venta.</p>
+        </div>
+
+        <div class="resumen-venta">
+          <div class="linea-resumen">
+            <span>Subtotal:</span>
+            <span id="resumen-venta-subtotal">USD 0.00</span>
+          </div>
+          <div class="linea-resumen">
+            <span>Descuento:</span>
+            <span id="resumen-venta-descuento">USD 0.00</span>
+          </div>
+          <div class="linea-resumen">
+            <span>IVA:</span>
+            <span id="resumen-venta-iva">USD 0.00</span>
+          </div>
+          <div class="linea-resumen linea-resumen-total">
+            <span>Total:</span>
+            <span id="resumen-venta-total">USD 0.00</span>
+          </div>
+          <button class="boton boton-principal" id="boton-finalizar-venta">Finalizar venta</button>
+          <button class="boton boton-secundario" id="boton-cancelar-venta">Cancelar venta</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="seccion historial-ventas-seccion">
+      <h2>Historial de Ventas</h2>
+      <div class="botones-formulario">
+        <button class="boton boton-principal" id="boton-exportar-ventas">Exportar ventas</button>
+      </div>
+      <table class="tabla-ventas-historial">
+        <thead>
+          <tr>
+            <th>ID Venta</th>
+            <th>Fecha</th>
+            <th>Productos</th>
+            <th>Subtotal</th>
+            <th>Descuento</th>
+            <th>IVA</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody id="cuerpo-tabla-historial">
+        </tbody>
+      </table>
+      <p class="sin-productos" id="mensaje-historial-vacio">No hay ventas registradas todavía.</p>
+    </section>
+  </main>
+
+  <script src="js/configuracion.js"></script>
+  <script src="js/Producto.js"></script>
+  <script src="js/Venta.js"></script>
+  <script src="js/Inventario.js"></script>
+  <script src="js/validaciones.js"></script>
+  <script src="js/almacenamiento.js"></script>
+  <script src="js/principal.js"></script>
+</body>
+</html>
